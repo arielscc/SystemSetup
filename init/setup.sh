@@ -36,8 +36,8 @@ trap revert_changes ERR
 # install homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-
 # personal apps
+brew install --cask warp
 brew install --cask visual-studio-code
 brew install --cask sourcetree
 brew install --cask google-chrome
@@ -54,6 +54,10 @@ brew install --cask datagrip
 brew install git
 brew install nvm
 brew install rbenv
+
+
+# install ho_my_zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # config nvm
 echo -e $lines >> ~/.zshrc
