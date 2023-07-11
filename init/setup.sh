@@ -43,6 +43,7 @@ brew install --cask sourcetree
 brew install --cask google-chrome
 brew install --cask figma
 brew install --cask postman
+brew install --cask reverso
 brew install docker
 
 # optional installation
