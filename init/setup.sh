@@ -55,6 +55,7 @@ brew install --cask datagrip
 brew install git
 brew install nvm
 brew install rbenv
+brew install jq
 
 
 # install ho_my_zsh
