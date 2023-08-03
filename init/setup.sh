@@ -45,6 +45,8 @@ brew install --cask figma
 brew install --cask postman
 brew install --cask reverso
 brew install docker
+brew install --cask react-native-debugger
+brew install --cask flipper
 
 # optional installation
 brew install --cask jetbrains-toolbox
