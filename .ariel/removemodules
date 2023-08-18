@@ -1,0 +1,19 @@
+#!/bin/bash
+delete_node_modules() {
+    for item in "$1"/*; do
+        if [[ -d "$item" ]]; then
+            if [[ "$(basename "$item")" == "node_modules" ]]; then
+                echo "Deleting: $item"
+                rm -rf "$item"
+            else
+                delete_node_modules "$item"
+            fi
+        fi
+    done
+}
+
+root_dir="$(pwd)"
+
+echo "Starting from: $root_dir"
+delete_node_modules "$root_dir"
+echo "All node_modules directories deleted."
