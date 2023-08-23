@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# Verificar si FFmpeg está instalado
+if ! command -v ffmpeg &> /dev/null; then
+    echo "FFmpeg no está instalado. Se intentará la instalación."
+    
+# Debian/Ubuntu
+    sudo apt-get update
+    sudo apt-get install ffmpeg -y
+fi
+
+input_directory="$(pwd)"
+output_directory="$input_directory/mp4"
+
+mkdir -p "$output_directory"
+
+# Función recursiva para copiar la estructura de carpetas
+copy_structure() {
+    local source_dir="$1"
+    local target_dir="$2"
+    mkdir -p "$target_dir"
+    
+    for entry in "$source_dir"/*; do
+        if [ -d "$entry" ]; then
+            local subfolder=$(basename "$entry")
+            copy_structure "$source_dir/$subfolder" "$target_dir/$subfolder"
+        elif [ -f "$entry" ]; then
+            local filename=$(basename "$entry")
+            local extension="${filename##*.}"
+            
+            if [ "$extension" = "ts" ]; then
+                local relative_path="${source_dir#$input_directory}"
+                local mp4_path="$output_directory$relative_path"
+                local mp4_file="$mp4_path/${filename%.ts}.mp4"
+                
+                mkdir -p "$mp4_path"
+                ffmpeg -i "$entry" -c:v libx264 -c:a aac -strict experimental "$mp4_file"
+            fi
+        fi
+    done
+}
+
+copy_structure "$input_directory" "$output_directory"
+
+echo "Conversión completada."
